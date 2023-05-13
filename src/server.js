@@ -29,43 +29,7 @@ app.post('/user',async (req,res )=> {
           }
 });
 
-
-app.post('/regi',async (req,res )=> {
-  const data = req.body;
-  try {
-  const user = await prisma.user.create({
-           data : {
-             'email': data.email,
-            'username': data.username,
-           }
-  });
-
-  const firstTweet = await prisma.tweet.create({
-    data : {
-      text: data.text,
-      userId : user.id
-    }
-  });
-  const tweetResult = await prisma.tweet.findMany({
-    where : {
-      id : firstTweet.id
-    },
-    include : { user : true }
-  })
-
-  const result = await prisma.User.findMany({
-    where : {
-      id : user.id
-    },
-    include : { tweets : true }
-  })
  
-  res.status(201).send([ tweetResult ,  result ]);
-  } catch (error) {
-    console.log(error);
-    res.status(500).send('not stored'); 
-  }
-});
 
 
 
