@@ -1,19 +1,33 @@
 
-class ProductController{
-           getAllProduct = userStoreRequest => async (req, res) => {
-                    const teste = req.body;
-                    console.error('hello', teste);
-          
+const { PrismaClient, Prisma } = require('@prisma/client');
+const prisma = new PrismaClient();
+
+
+class ProductController {
+
+          storeProduct = productStoreRequest => async (req, res) => {
+                    const data = req.body;
                     try {
-                              await userStoreRequest.validate(teste, { abortEarly: false });
-                              return next();
+                              await productStoreRequest.validate(data, { abortEarly: false });
+                              const product = await prisma.product.create({ data });
+                              return res.status(201).json(product);
                     } catch (err) {
                               return res.status(500).json({ type: err.name, message: err.errors });
                     }
+
           }
-          getAllUserTester =  async (req, res) => {
-                    res.status(200).json({ msg: 'get all products testing' });
+          getAllProduct = async (req, res) => {
+                    const products = await prisma.product.findMany({
+                              orderBy: {
+                                        id: "desc"
+                              },
+                              include: {
+                                        pack: true,
+                              }
+                    });
+                    return res.status(202).json(products);
           }
+
 }
 
 

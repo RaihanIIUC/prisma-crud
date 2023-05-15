@@ -10,7 +10,6 @@ const router = express.Router();
 
 
 router.post('/', getAllUser(userStoreRequest) , getAllUser);
- router.route("/testing").get(ProductController.getAllUserTester);
 
 
 

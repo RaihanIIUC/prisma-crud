@@ -5,6 +5,7 @@ const prisma = new PrismaClient();
 const app = express();
 const users_routes = require("./Routes/UserRoutes");
 const products_routes = require("./Routes/ProductRoutes");
+const pack_routes = require("./Routes/PackRoutes");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -17,6 +18,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/users',users_routes);
 app.use('/api/products',products_routes);
+app.use('/api/packs',pack_routes);
  
 
 const PORT = process.env.PORT || 5000;

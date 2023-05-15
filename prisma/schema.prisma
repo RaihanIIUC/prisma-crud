@@ -9,3 +9,23 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model Product{
+  id Int @id @default(autoincrement())
+  code String 
+  proccessing_name String
+  name String
+  market_name String
+  pack_size_id Int
+  variant String
+  online_selling_price Decimal @db.Decimal(10,2)
+  inhouse_selling_price Decimal @db.Decimal(10,2)
+  pack Pack @relation(fields: [pack_size_id],references: [id])
+}
+
+model Pack{
+  id Int @id @default(autoincrement())
+  weight Decimal @db.Decimal(10,2)
+  name String
+  products Product[]
+}

@@ -2,17 +2,16 @@
 
 
 const express = require('express');
-const { getAllUser } = require('../Controllers/UserController');
-const { userStoreRequest } = require('../Requests/UserRequests');
 const ProductController = require('../Controllers/ProductController');
+const { productStoreRequest } = require('../Requests/ProductStoreRequest');
    
 const router = express.Router();
 
 
 
-router.post('/', ProductController.getAllProduct(userStoreRequest) , ProductController.getAllProduct);
+router.post('/', ProductController.storeProduct(productStoreRequest) ,ProductController.storeProduct);
 
-router.route("/testing").get(ProductController.getAllUserTester);
+router.route("/").get(ProductController.getAllProduct);
 
 
 
